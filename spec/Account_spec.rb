@@ -7,11 +7,7 @@ describe Account do
 
   before(:each) do
     @alice = Account.new('Alice')
-
   end
-
-  # acct is instance of Account class
-  # acct has an account_holder_name
 
   it 'initialises with attributes' do
     expect(@alice).to be_instance_of(Account)
@@ -22,10 +18,16 @@ describe Account do
 
   describe '#make_deposit' do
     let(:input) { StringIO.new('20') }
-    it 'a deposit alters the balance' do
+    it 'alters the balance' do
       $stdin = input
       expect { @alice.make_deposit }.to output("how much?\n")
       .to_stdout.and change { @alice.balance }.to(20)
+    end
+
+    it 'alters the transaction history' do
+      $stdin = input
+      expect { @alice.make_deposit }.to output("how much?\n")
+      .to_stdout.and change { @alice.transaction_history }.to([[0, 20, 0, 20]])
     end
   end
 
