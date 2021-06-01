@@ -79,9 +79,6 @@ end
 # if requested, balance is shown after deposit/withdrawal
 # if NOT requested, balance is NOT shown after deposit/withdrawal
 
-# acct has a method called make_withdrawal
-# make_withdrawal alters transaction_history
-# make_withdrawal raises error if insufficient funds
 
 
 # acct has a method called show_statement
