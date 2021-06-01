@@ -1,27 +1,44 @@
 
 require 'Account'
+require 'stringio'
+
 
 describe Account do
 
-  subject(:alice) { Account.new('Alice')}
+  before(:each) do
+    @alice = Account.new('Alice')
+
+  end
 
   # acct is instance of Account class
   # acct has an account_holder_name
-  it 'initialises with a name' do
-    expect(alice).to be_instance_of(Account)
-    expect(alice.name).to eq('Alice')
+
+  it 'initialises with attributes' do
+    expect(@alice).to be_instance_of(Account)
+    expect(@alice).to respond_to(:name)
+    expect(@alice).to respond_to(:balance)
+    expect(@alice).to respond_to(:transaction_history)
   end
 
+  describe '#make_deposit' do
+    let(:input) { StringIO.new('20') }
+    it 'a deposit alters the balance' do
+      $stdin = input
+      expect { @alice.make_deposit }.to output("how much?\n")
+      .to_stdout.and change { @alice.balance }.to(20)
+    end
+  end
 
 end
+# expect(@alice.transaction_history).to eq(['date || credit || debit || balance '],['
+# 01/06/2021 || 10.00 || || 10.00'])
+
 
   #
   # it 'implements roll' do
   #   expect(Dice.new).to respond_to(:roll)
   # end
 
-# acct has a transaction_history
-# transaction_history is blank when new
 
 # acct has a method called make_deposit
 # make_deposit alters transaction_history
