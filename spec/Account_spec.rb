@@ -1,6 +1,24 @@
-# acct is instance of Account class
-# acct has an account_holder_name
-# instantiation results in name populating correctly
+
+require 'Account'
+
+describe Account do
+
+  subject(:alice) { Account.new('Alice')}
+
+  # acct is instance of Account class
+  # acct has an account_holder_name
+  it 'initialises with a name' do
+    expect(alice).to be_instance_of(Account)
+    expect(alice.name).to eq('Alice')
+  end
+
+
+end
+
+  #
+  # it 'implements roll' do
+  #   expect(Dice.new).to respond_to(:roll)
+  # end
 
 # acct has a transaction_history
 # transaction_history is blank when new
@@ -23,6 +41,7 @@
 # show_statement contains balance
 # show_statement contains date
 # if I make three transactions, they are shown in rev_chron order
+# multiple transactions over multiple days are recorded correctly
 
 # acct has a method called show_balance
 # show_statement contains my most recent balance
