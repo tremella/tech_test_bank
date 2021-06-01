@@ -8,12 +8,10 @@ class Account
     @transaction_history = []
   end
 
-  # INPUT function
-
   def make_deposit
     puts 'how much?'
-    deposit = gets.chomp
-    deposit = deposit.to_i
+    deposit = gets.chomp.to_i
+    fail 'invalid sum' if deposit < 1
     @transaction_history.push([0,deposit,0, (@balance+deposit)])
     @balance += deposit
   end

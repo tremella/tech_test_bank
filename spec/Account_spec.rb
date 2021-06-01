@@ -42,6 +42,12 @@ describe Account do
       expect { @tessa.make_deposit }.to output("how much?\n")
       .to_stdout.and change { @tessa.transaction_history }.to([[0, 20, 0, 120]])
     end
+
+    it 'throws an error for a deposit < 1' do
+      $stdin = StringIO.new('0')
+      expect { @tessa.make_deposit }.to output("how much?\n")
+      .to_stdout.and raise_error 'invalid sum'
+    end
   end
 
 end
