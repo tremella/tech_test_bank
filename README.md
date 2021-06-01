@@ -10,7 +10,7 @@ Full requirements and acceptance criteria can be found at https://github.com/mak
 
 | Account class |                                         |
 |---------------|-----------------------------------------|
-| Attributes    | transaction_history, account_holder_name. |
+| Attributes    | transaction_history, account_holder_name |
 | Methods       | make_deposit, make_withdrawal, show_statement, show_balance |
 
 Most/all of the above methods should have user prompts.
