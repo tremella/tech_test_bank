@@ -23,3 +23,4 @@ New classes to ensure SRP
 | Transaction class |                                     |
 |---------------|-----------------------------------------|
 | Attributes    | date, credit, debit, balance, parsed_self|
+s
