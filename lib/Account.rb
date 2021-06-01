@@ -2,9 +2,9 @@ class Account
 
   attr_accessor:name, :balance, :transaction_history
 
-  def initialize(name)
+  def initialize(name, balance = 0)
     @name = name
-    @balance = 0
+    @balance = balance
     @transaction_history = []
   end
 
@@ -12,7 +12,6 @@ class Account
 
   def make_deposit
     puts 'how much?'
-
     deposit = gets.chomp
     deposit = deposit.to_i
     @transaction_history.push([0,deposit,0, (@balance+deposit)])

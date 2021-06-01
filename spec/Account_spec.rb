@@ -7,6 +7,7 @@ describe Account do
 
   before(:each) do
     @alice = Account.new('Alice')
+    @tessa = Account.new('Tessa',100) #a positive starting balance
   end
 
   it 'initialises with attributes' do
@@ -24,26 +25,29 @@ describe Account do
       .to_stdout.and change { @alice.balance }.to(20)
     end
 
+    it 'alters a non-zero balance' do
+      $stdin = input
+      expect { @tessa.make_deposit }.to output("how much?\n")
+      .to_stdout.and change { @tessa.balance }.to(120)
+    end
+
     it 'alters the transaction history' do
       $stdin = input
       expect { @alice.make_deposit }.to output("how much?\n")
       .to_stdout.and change { @alice.transaction_history }.to([[0, 20, 0, 20]])
     end
+
+    it 'alters a transaction history which has a non-zero balance' do
+      $stdin = input
+      expect { @tessa.make_deposit }.to output("how much?\n")
+      .to_stdout.and change { @tessa.transaction_history }.to([[0, 20, 0, 120]])
+    end
   end
 
 end
-# expect(@alice.transaction_history).to eq(['date || credit || debit || balance '],['
-# 01/06/2021 || 10.00 || || 10.00'])
 
 
-  #
-  # it 'implements roll' do
-  #   expect(Dice.new).to respond_to(:roll)
-  # end
 
-
-# acct has a method called make_deposit
-# make_deposit alters transaction_history
 # make_deposit raises error if input is 0
 # if requested, balance is shown afterwards
 # if NOT requested, balance is NOT shown afterwards
