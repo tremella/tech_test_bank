@@ -28,6 +28,14 @@ class Account
   # stdout is to make a transactions handler.
 
   # maybe we need a Frontend class? like a TELLER
+  # goal should be to display messages
+  # maybe also to help DISPLAY the transaction history.
+
+  # a TRANSACTION can be a class of its own. 
+  # it can be instantiated with each deps/withdr
+  # it can be translated to a string
+  # it should be a child class of Account
+
 end
 
 

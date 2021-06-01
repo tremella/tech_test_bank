@@ -10,7 +10,16 @@ Full requirements and acceptance criteria can be found at https://github.com/mak
 
 | Account class |                                         |
 |---------------|-----------------------------------------|
-| Attributes    | transaction_history, account_holder_name |
-| Methods       | make_deposit, make_withdrawal, show_statement, show_balance |
+| Attributes    | transaction_history, name, balance |
+| Methods       | make_deposit, make_withdrawal  |
 
-Most/all of the above methods should have user prompts.
+New classes to ensure SRP
+
+| Teller class |                                         |
+|---------------|-----------------------------------------|
+| Attributes    |  ? |
+| Methods       | show_options, show_statement, show_balance |
+
+| Transaction class |                                     |
+|---------------|-----------------------------------------|
+| Attributes    | date, credit, debit, balance, parsed_self|
