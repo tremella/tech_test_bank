@@ -10,8 +10,8 @@ class Teller
   end
 
   def welcome
-    present_options()
-    @customer.make_deposit()
+    puts present_options()
+
 
 
   end

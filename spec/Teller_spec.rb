@@ -2,11 +2,17 @@ require 'Teller'
 require 'stringio'
 require_relative '../lib/messages.rb'
 
+
 describe Teller do
+
+  before(:each) do
+    # new teller, gladys, with a customer, alice
+    @gladys = Teller.new('Alice')
+  end
+
   describe '#welcome' do
     it 'greets and provides options' do
-      p subject.welcome()
-      expect(subject.welcome).to eq('Hello')
+      expect { @gladys.welcome }.to output("enter 'deposit' to deposit, enter 'withdraw' to withdraw, enter 'balance' for balance, or enter 'statement' for a statement\n").to_stdout
     end
   end
 

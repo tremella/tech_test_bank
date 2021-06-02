@@ -1,10 +1,7 @@
 
 
 def present_options
-  puts "to deposit funds, type 'deposit',\n
-  to withdraw funds, type 'withdraw',\n
-  to see your balance, type 'balance',\n
-  for a statement, type 'statement'"
+  print "enter 'deposit' to deposit, enter 'withdraw' to withdraw, enter 'balance' for balance, or enter 'statement' for a statement"
 end
 
 
