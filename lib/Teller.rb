@@ -25,7 +25,7 @@ class Teller
   end
 
   def implement_choice()
-    choice = gets.chomp
+    choice = gets
     if choice == 'deposit'
       @customer.make_deposit()
     elsif choice == 'withdraw'
