@@ -35,13 +35,13 @@ describe Account do
     it 'alters a the transaction history (zero balance acct)' do
       $stdin = input
       expect { @alice.make_deposit }.to output("how much?\n")
-      .to_stdout.and change { @alice.transaction_history }.to([[0, 20, 0, 20]])
+      .to_stdout.and change { @alice.transaction_history }.to([[Time.now.strftime("%m/%d/%Y"), 20, 0, 20]])
     end
 
     it 'alters a the transaction history (non-zero balance acct)' do
       $stdin = input
       expect { @tessa.make_deposit }.to output("how much?\n")
-      .to_stdout.and change { @tessa.transaction_history }.to([[0, 20, 0, 120]])
+      .to_stdout.and change { @tessa.transaction_history }.to([[Time.now.strftime("%m/%d/%Y"), 20, 0, 120]])
     end
 
     it 'throws an error for a deposit < 1' do
@@ -63,7 +63,7 @@ describe Account do
     it 'alters a the transaction history (non-zero balance acct)' do
       $stdin = input
       expect { @tessa.make_withdrawal }.to output("how much?\n")
-      .to_stdout.and change { @tessa.transaction_history }.to([[0, 0, 20, 80]])
+      .to_stdout.and change { @tessa.transaction_history }.to([[Time.now.strftime("%m/%d/%Y"), 0, 20, 80]])
     end
 
     it 'throws an error for a withdrawal exceeding acct balance' do
@@ -74,21 +74,3 @@ describe Account do
 
   end
 end
-
-# TELLER tests
-# if requested, balance is shown after deposit/withdrawal
-# if NOT requested, balance is NOT shown after deposit/withdrawal
-
-
-
-# acct has a method called show_statement
-# show_statement contains credit history
-# show_statement contains debit history
-# show_statement contains balance
-# show_statement contains date
-# if I make three transactions, they are shown in rev_chron order
-# multiple transactions over multiple days are recorded correctly
-
-# acct has a method called show_balance
-# show_statement contains my most recent balance
-# show_statement contains my current date

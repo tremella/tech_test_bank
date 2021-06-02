@@ -15,12 +15,25 @@ describe Teller do
     expect(@gladys).to respond_to(:customer)
   end
 
-  describe '#welcome' do
-    it 'greets and provides options' do
-      expect { @gladys.welcome }.to output("enter 'deposit' to deposit, enter 'withdraw' to withdraw, enter 'balance' for balance, or enter 'statement' for a statement\n").to_stdout.and change { pick }.to ('deposit')
+  describe '#present_options' do
+    it 'provides options' do
+      expect { @gladys.present_options }.to output("enter 'deposit' to deposit, 'withdraw' to withdraw, 'balance' for balance, 'statement' for a statement, or 'quit' to leave\n").to_stdout
     end
   end
 
+  describe '#goodbye' do
+    it 'thanks the customer by name' do
+      expect { @gladys.goodbye(@gladys.customer.name) }.to output("thanks, Alice, and have a great day!\n").to_stdout
+    end
+  end
+
+  # let(:input) { StringIO.new('20') }
+  #
+  # it 'alters the balance (zero balance acct)' do
+  #   $stdin = input
+  #   expect { @alice.make_deposit }.to output("how much?\n")
+  #   .to_stdout.and change { @alice.balance }.to(20)
+  # end
 
 
 end
@@ -31,3 +44,16 @@ end
 #
 #
 #
+# TELLER tests
+
+# acct has a method called show_statement
+# show_statement contains credit history
+# show_statement contains debit history
+# show_statement contains balance
+# show_statement contains date
+# if I make three transactions, they are shown in rev_chron order
+# multiple transactions over multiple days are recorded correctly
+
+# acct has a method called show_balance
+# show_statement contains my most recent balance
+# show_statement contains my current date
