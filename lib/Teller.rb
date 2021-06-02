@@ -56,7 +56,7 @@ class Teller
   end
 
   def show_balance
-    puts "your balance is #{@customer.balance}"
+    puts "your balance is #{sprintf('%.2f', @customer.balance)}"
   end
 
   def goodbye(customer)
