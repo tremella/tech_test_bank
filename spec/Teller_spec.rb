@@ -1,6 +1,5 @@
 require 'Teller'
 require 'stringio'
-# require_relative '../lib/messages.rb'
 
 
 describe Teller do
@@ -8,7 +7,6 @@ describe Teller do
   before(:each) do
     # new teller, gladys, with a customer, alice
     @gladys = Teller.new('Alice')
-    allow(@gladys).to receive(:gets).and_return('quit')
   end
 
   it 'initialises with attribute' do
@@ -18,16 +16,8 @@ describe Teller do
 
   describe '#present_options' do
     it 'provides options' do
-      expect { @gladys.present_options }.to output("enter 'deposit' to deposit, 'withdraw' to withdraw, 'balance' for balance, 'statement' for a statement, or 'quit' to leave\n").to_stdout
+      expect { @gladys.present_options }.to output("enter 'deposit', 'withdraw', 'balance', 'statement', or 'quit'\n").to_stdout
     end
-  end
-
-  describe '#session' do
-    it 'greets customer by name' do
-      expect { @gladys.session }.to output("Welcome, Alice\n").to_stdout
-    end
-
-
   end
 
   describe '#goodbye' do
@@ -36,22 +26,20 @@ describe Teller do
     end
   end
 
-  # let(:input) { StringIO.new('20') }
-  #
-  # it 'alters the balance (zero balance acct)' do
-  #   $stdin = input
-  #   expect { @alice.make_deposit }.to output("how much?\n")
-  #   .to_stdout.and change { @alice.balance }.to(20)
-  # end
+  describe '#session' do
+    xit 'greets customer by name' do
+      allow(@gladys).to receive(:session).and
+
+      expect { @gladys.session }.to output("Welcome, Aalice\n").to_stdout
+    end
+
+  end
+
 
 
 end
 
-# is instance of self
-# does greet and options
-# successfully puts 'how much'
-#
-#
+
 #
 # TELLER tests
 
