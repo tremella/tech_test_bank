@@ -5,8 +5,8 @@ This is a command-line tool to simulate the user experience of a few basic banki
 Users should be able to:
 
 - deposit and withdraw funds,
-- see their current balance, and
-- obtain a statement of their transaction history.
+- see their current balance,
+- obtain a statement of their transaction history, and
 - interact with a virtual teller (my addition)
 
 Full requirements and acceptance criteria can be found at https://github.com/makersacademy/course/blob/master/individual_challenges/bank_tech_test.md
@@ -21,11 +21,11 @@ bundle install
 ```sh
 ruby demo_script.rb
 ```
-The above script runs a session for a client named Jan with an empty account.
+The above script starts a session for a client named Jan with an empty account.
 
 ###CLASSES###
 
-To keep SRP, I created an account class to handle any transactions which would alter the account, and a teller class for "displaying" transactions and providing an interface for the user.
+To keep SRP, I created an Account class to handle any transactions which would alter the account, and a Teller class for any "displaying" transactions, and for providing an interface for the user.
 
 | Account class |                                         |
 |---------------|-----------------------------------------|
@@ -40,4 +40,4 @@ To keep SRP, I created an account class to handle any transactions which would a
 
 ###TO DO###
 
-TDD went well for the Account class but I'm struggling to test the user inputs for the teller class (especially with gets.chomp). Pointers and examples sorely needed, thanks in advance.
+TDD went well for the Account class but I'm struggling to write tests for the user inputs for the Teller class (especially with gets.chomp).
