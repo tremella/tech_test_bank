@@ -9,6 +9,10 @@ describe Teller do
     @gladys = Teller.new('Alice')
   end
 
+  after(:each) do
+    $stdin = STDIN # restored to prevent issues
+  end
+
   it 'initialises with attribute' do
     expect(@gladys).to be_instance_of(Teller)
     expect(@gladys).to respond_to(:customer)
@@ -30,13 +34,27 @@ describe Teller do
 
   describe '#session' do
     # let(:deposit_str) { StringIO.new('deposit') }
-    # let(:deposit) { StringIO.new('20') }
+    # let(:deposit) { StringIO.new('-20') }
     # let(:quit) { StringIO.new('quit') }
-    xit 'can deposit' do
-      expect { @gladys.session }.to output("Welcome, Alice\n").to_stdout
-      expect { @gladys.present_options }.to output("enter 'deposit'," \
-        " 'withdraw', 'balance', 'statement', or 'quit'\n").to_stdout
-      allow($stdin).to receive(:gets).and_return('quit')
+
+    # ^ correctly formatted.
+    # xit "reaches 'present options' stage" do
+    #   $stdin = deposit_str
+    #   expect (@gladys.session).to eq('how muchh')
+    #
+    # end
+
+    it 'can show balance and quit' do
+      # @gladys.stub(:gets) {'quit'} # OUTDATED
+      #SUCCESSFUL MOCK
+      allow(@gladys).to receive(:gets).and_return('balance','quit')
+      # expect(@gladys.session).to output("HHHH\n").to_stdout #WRONG SYNTAX, don't use this
+      expect { @gladys.session }.to output("HHHH\n").to_stdout
+
+      # @gladys.session
+      # allow($stdin).to receive(:gets).and_return('deposit')
+      # deposit_req = $stdin.gets
+      # expect { @gladys.session }.to output("HSSSSS").to_stdout
     end
   end
 end
