@@ -15,7 +15,8 @@ class Account
     raise 'invalid sum' if sum < 1
 
     @transaction_history.push([Time.now.strftime('%m/%d/%Y'),
-      format('%.2f', sum), format('%.2f', 0), format('%.2f', @balance + sum)])
+                               format('%.2f', sum), format('%.2f', 0),
+                               format('%.2f', @balance + sum)])
     # sprintf('%.2f', sum) turns '5' into '5.00'
     @balance += sum
   end
@@ -26,7 +27,8 @@ class Account
     raise 'insufficient balance' if (@balance - sum).negative?
 
     @transaction_history.push([Time.now.strftime('%m/%d/%Y'),
-      format('%.2f', 0), format('%.2f', sum), format('%.2f', @balance - sum)])
+                               format('%.2f', 0), format('%.2f', sum),
+                               format('%.2f', @balance - sum)])
     @balance -= sum
   end
 end

@@ -43,7 +43,7 @@ end
 
 # TELLER tests
 
-# acct has a method called show_statement
+# has a method called show_statement
 # show_statement contains credit history
 # show_statement contains debit history
 # show_statement contains balance
@@ -51,6 +51,5 @@ end
 # if I make three transactions, they are shown in rev_chron order
 # multiple transactions over multiple days are recorded correctly
 
-# acct has a method called show_balance
+# has a method called show_balance
 # show_statement contains my most recent balance
-# show_statement contains my current date
