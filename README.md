@@ -11,7 +11,7 @@ Users should be able to:
 
 Full requirements and acceptance criteria can be found at https://github.com/makersacademy/course/blob/master/individual_challenges/bank_tech_test.md
 
-***to run: ***
+***to run:***
 
 To test this out:
 - clone the repo
