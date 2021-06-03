@@ -1,13 +1,16 @@
+# frozen_string_literal: true
 
-require 'Account'
+require 'account'
 require 'stringio'
 
-
 describe Account do
-
   before(:each) do
     @alice = Account.new('Alice')
-    @tessa = Account.new('Tessa',100) #a positive starting balance
+    @tessa = Account.new('Tessa', 100) # a positive starting balance
+  end
+
+  after(:each) do
+    $stdin = STDIN # restored to prevent issues
   end
 
   it 'initialises with attributes' do
@@ -23,31 +26,33 @@ describe Account do
     it 'alters the balance (zero balance acct)' do
       $stdin = input
       expect { @alice.make_deposit }.to output("how much?\n")
-      .to_stdout.and change { @alice.balance }.to(20.0)
+        .to_stdout.and change { @alice.balance }.to(20.0)
     end
 
     it 'alters the balance (non-zero balance acct)' do
       $stdin = input
       expect { @tessa.make_deposit }.to output("how much?\n")
-      .to_stdout.and change { @tessa.balance }.to(120.0)
+        .to_stdout.and change { @tessa.balance }.to(120.0)
     end
 
     it 'alters the transaction history (zero balance acct)' do
       $stdin = input
       expect { @alice.make_deposit }.to output("how much?\n")
-      .to_stdout.and change { @alice.transaction_history }.to([[Time.now.strftime("%m/%d/%Y"), "20.00", "0.00", "20.00"]])
+        .to_stdout.and change { @alice.transaction_history }
+        .to([[Time.now.strftime('%m/%d/%Y'), '20.00', '0.00', '20.00']])
     end
 
     it 'alters the transaction history (non-zero balance acct)' do
       $stdin = input
       expect { @tessa.make_deposit }.to output("how much?\n")
-      .to_stdout.and change { @tessa.transaction_history }.to([[Time.now.strftime("%m/%d/%Y"), "20.00", "0.00", "120.00"]])
+        .to_stdout.and change { @tessa.transaction_history }
+        .to([[Time.now.strftime('%m/%d/%Y'), '20.00', '0.00', '120.00']])
     end
 
     it 'throws an error for a deposit < 1' do
       $stdin = StringIO.new('0')
       expect { @tessa.make_deposit }.to output("how much?\n")
-      .to_stdout.and raise_error 'invalid sum'
+        .to_stdout.and raise_error 'invalid sum'
     end
   end
 
@@ -57,20 +62,20 @@ describe Account do
     it 'alters the balance (non-zero balance acct)' do
       $stdin = input
       expect { @tessa.make_withdrawal }.to output("how much?\n")
-      .to_stdout.and change { @tessa.balance }.to(80.0)
+        .to_stdout.and change { @tessa.balance }.to(80.0)
     end
 
     it 'alters a the transaction history (non-zero balance acct)' do
       $stdin = input
       expect { @tessa.make_withdrawal }.to output("how much?\n")
-      .to_stdout.and change { @tessa.transaction_history }.to([[Time.now.strftime("%m/%d/%Y"), "0.00", "20.00", "80.00"]])
+        .to_stdout.and change { @tessa.transaction_history }
+        .to([[Time.now.strftime('%m/%d/%Y'), '0.00', '20.00', '80.00']])
     end
 
     it 'throws an error for a withdrawal exceeding acct balance' do
       $stdin = input
       expect { @alice.make_withdrawal }.to output("how much?\n")
-      .to_stdout.and raise_error 'insufficient balance'
+        .to_stdout.and raise_error 'insufficient balance'
     end
-
   end
 end

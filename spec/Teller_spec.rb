@@ -1,9 +1,9 @@
-require 'Teller'
+# frozen_string_literal: true
+
+require 'teller'
 require 'stringio'
 
-
 describe Teller do
-
   before(:each) do
     # new teller, gladys, with a customer, alice
     @gladys = Teller.new('Alice')
@@ -16,31 +16,31 @@ describe Teller do
 
   describe '#present_options' do
     it 'provides options' do
-      expect { @gladys.present_options }.to output("enter 'deposit', 'withdraw', 'balance', 'statement', or 'quit'\n").to_stdout
+      expect { @gladys.present_options }.to output("enter 'deposit'," \
+      " 'withdraw', 'balance', 'statement', or 'quit'\n").to_stdout
     end
   end
 
   describe '#goodbye' do
     it 'thanks the customer by name' do
-      expect { @gladys.goodbye(@gladys.customer.name) }.to output("thanks, Alice, and have a great day!\n").to_stdout
+      expect { @gladys.goodbye(@gladys.customer.name) }.to output('thanks,' \
+        " Alice, and have a great day!\n").to_stdout
     end
   end
 
   describe '#session' do
-    xit 'greets customer by name' do
-      allow(@gladys).to receive(:session).and
-
-      expect { @gladys.session }.to output("Welcome, Aalice\n").to_stdout
+    # let(:deposit_str) { StringIO.new('deposit') }
+    # let(:deposit) { StringIO.new('20') }
+    # let(:quit) { StringIO.new('quit') }
+    xit 'can deposit' do
+      expect { @gladys.session }.to output("Welcome, Alice\n").to_stdout
+      expect { @gladys.present_options }.to output("enter 'deposit'," \
+        " 'withdraw', 'balance', 'statement', or 'quit'\n").to_stdout
+      allow($stdin).to receive(:gets).and_return('quit')
     end
-
   end
-
-
-
 end
 
-
-#
 # TELLER tests
 
 # acct has a method called show_statement
