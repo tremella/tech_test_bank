@@ -31,4 +31,8 @@ class Account
                                format('%.2f', @balance - sum)])
     @balance -= sum
   end
+
+  def get_balance
+    "#{format('%.2f', @balance)}"
+  end
 end
