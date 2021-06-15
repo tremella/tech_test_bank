@@ -3,48 +3,62 @@
 require './lib/account'
 require './lib/clerk'
 
+
+# A Teller takes I/O from the customer and delegates tasks to the Clerk
 class Teller
-  attr_accessor :customer
+  TELLER_OPTIONS = ['deposit', 'withdraw', 'balance', 'statement']
+  QUIT_COMMAND = 'quit'
 
   def initialize(customer_name)
     @customer_name = customer_name
-    @clerk = Clerk.new(customer_name)
+    @clerk = Clerk.new
   end
 
   def session
-    say_hello
+    puts say_hello
     listen
   end
 
   private 
-  
+
   def listen
     while true
-      present_options
-      implement_choice
+      puts present_options
+      puts implement_choice(gets.chomp)
+    end
+  end
+
+  def implement_choice(choice)
+    if choice == 'quit'
+      say_goodbye
+      exit
+    elsif choice == 'deposit'
+      @clerk.make_deposit(ask_how_much)
+    elsif choice == 'withdraw'
+      @clerk.make_withdrawal(ask_how_much)
+    elsif choice == 'balance'
+      @clerk.get_balance
+    elsif choice == 'statement'
+      @clerk.get_statement
+    else
+      "Sorry I don't know how to do that!"
     end
   end
 
   def say_hello
-    puts "Welcome, #{@customer_name}"
+    "Welcome, #{@customer_name}"
   end
 
   def say_goodbye
-    puts "Thanks, #{@customer_name}, and have a great day!"
+    "Thanks, #{@customer_name}, and have a great day!"
+  end
+
+  def ask_how_much
+    puts 'How much?'
+    gets.chomp.to_f
   end
 
   def present_options
-    puts "enter 'deposit', 'withdraw', 'balance', 'statement', or 'quit'"
-  end
-
-  def implement_choice
-    choice = gets.chomp
-
-    if choice == 'quit'
-      say_goodbye
-      exit
-    else
-      puts @clerk.run_task(choice)
-    end
+    "Please type #{TELLER_OPTIONS.map{ |e| "'#{e}'" }.join(", ")} or '#{QUIT_COMMAND}' followed by the enter key"
   end
 end
