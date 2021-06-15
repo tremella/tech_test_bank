@@ -1,6 +1,10 @@
+require './lib/printer'
+require './lib/account'
+
 class Clerk
-  def intialize(customer)
-    @account = Account.new(customer)
+  def initialize(customer_name)
+    @account = Account.new(customer_name)
+    @printer = Printer.new
   end
 
   def run_task(choice, account)
@@ -9,11 +13,9 @@ class Clerk
     elsif choice == 'withdraw'
       @account.make_withdrawal
     elsif choice == 'balance'
-      "#{format('%.2f', @customer.balance)}"
+      @account.get_balance
     elsif choice == 'statement'
-      print_statement(@customer.transaction_history)
-    elsif choice == 'quit'
-      @session_ended = true
+      @printer.print_statement( @account)
     else
       'invalid option'
     end

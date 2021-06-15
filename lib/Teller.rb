@@ -1,33 +1,36 @@
 # frozen_string_literal: true
 
-# require_relative './messages.rb'
-
 require './lib/account'
 require './lib/clerk'
-
-# A Teller is only needed when we have a customer, 
-# therefore a teller *should* hold customer, but not as an account
 
 class Teller
   attr_accessor :customer
 
-  def initialize(customer)
-    @customer = customer
-    @clerk = Clerk.new(customer)
-    @session_ended = false
+  def initialize(customer_name)
+    @customer_name = customer_name
+    @clerk = Clerk.new(customer_name)
   end
 
   def session
-    puts "Welcome, #{@customer.name}"
+    say_hello
+    listen
+  end
 
-    while @session_ended == false
+  private 
+  
+  def listen
+    while true
       present_options
       implement_choice
     end
+  end
 
-    goodbye(@customer.name)
+  def say_hello
+    puts "Welcome, #{@customer_name}"
+  end
 
-    exit
+  def say_goodbye
+    puts "Thanks, #{@customer_name}, and have a great day!"
   end
 
   def present_options
@@ -36,14 +39,12 @@ class Teller
 
   def implement_choice
     choice = gets.chomp
-    @clerk.run_task(choice)
-  end
 
-  def show_balance
-    puts "your balance is #{format('%.2f', @customer.balance)}"
-  end
-
-  def goodbye(customer)
-    puts "thanks, #{customer}, and have a great day!"
+    if choice == 'quit'
+      say_goodbye
+      exit
+    else
+      puts @clerk.run_task(choice)
+    end
   end
 end
