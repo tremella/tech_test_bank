@@ -16,17 +16,13 @@ class Teller
 
   def session
     puts say_hello
-    listen
+
+    while true
+      ask_what_to_do
+    end
   end
 
   private 
-
-  def listen
-    while true
-      puts present_options
-      puts implement_choice(gets.chomp)
-    end
-  end
 
   def implement_choice(choice)
     if choice == 'quit'
@@ -45,12 +41,9 @@ class Teller
     end
   end
 
-  def say_hello
-    "Welcome, #{@customer_name}"
-  end
-
-  def say_goodbye
-    "Thanks, #{@customer_name}, and have a great day!"
+  def ask_what_to_do
+    puts present_options
+    puts implement_choice(gets.chomp)
   end
 
   def ask_how_much
@@ -60,5 +53,13 @@ class Teller
 
   def present_options
     "Please type #{TELLER_OPTIONS.map{ |e| "'#{e}'" }.join(", ")} or '#{QUIT_COMMAND}' followed by the enter key"
+  end
+
+  def say_hello
+    "Welcome, #{@customer_name}"
+  end
+
+  def say_goodbye
+    "Thanks, #{@customer_name}, and have a great day!"
   end
 end

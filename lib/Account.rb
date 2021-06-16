@@ -2,7 +2,7 @@
 require 'date'
 require './lib/transaction'
 
-# An Account holds a history of transactions and allows you to retrieve a balance
+# An Account holds a history of transactions
 class Account
   attr_reader :transaction_history
 
@@ -11,14 +11,15 @@ class Account
   end
 
   def deposit(amount)
-    @transaction_history << Transaction.new(amount, balance)
+    @transaction_history << Transaction.new(amount)
   end
 
   def withdraw(amount)
-    @transaction_history << Transaction.new(-amount, balance)
+    @transaction_history << Transaction.new(-amount)
   end
 
-  def balance
-    @transaction_history.inject(0) { |sum, transaction| sum + transaction.amount } 
+  def balance(untilDate = Time.now)
+    relevant_transactions = @transaction_history.filter { |transaction | transaction.date <= untilDate }
+    relevant_transactions.inject(0) { |sum, transaction| sum + transaction.amount } 
   end
 end
