@@ -1,67 +1,65 @@
 # frozen_string_literal: true
 
-# require_relative './messages.rb'
-
 require './lib/account'
+require './lib/clerk'
 
+
+# A Teller takes I/O from the customer and delegates tasks to the Clerk
 class Teller
-  attr_accessor :customer
+  TELLER_OPTIONS = ['deposit', 'withdraw', 'balance', 'statement']
+  QUIT_COMMAND = 'quit'
 
-  def initialize(customer)
-    @customer = Account.new(customer)
-    @session_ended = false
+  def initialize(customer_name)
+    @customer_name = customer_name
+    @clerk = Clerk.new
   end
 
   def session
-    puts "Welcome, #{@customer.name}"
-    while @session_ended == false
-      present_options
-      implement_choice
+    puts say_hello
+
+    while true
+      ask_what_to_do
     end
-    goodbye(@customer.name)
-    exit
+  end
+
+  private 
+
+  def implement_choice(choice)
+    if choice == 'quit'
+      say_goodbye
+      exit
+    elsif choice == 'deposit'
+      @clerk.make_deposit(ask_how_much)
+    elsif choice == 'withdraw'
+      @clerk.make_withdrawal(ask_how_much)
+    elsif choice == 'balance'
+      @clerk.get_balance
+    elsif choice == 'statement'
+      @clerk.get_statement
+    else
+      "Sorry I don't know how to do that!"
+    end
+  end
+
+  def ask_what_to_do
+    puts present_options
+    puts implement_choice(gets.chomp)
+  end
+
+  def ask_how_much
+    puts 'How much?'
+    gets.chomp.to_f
   end
 
   def present_options
-    puts "enter 'deposit', 'withdraw', 'balance', 'statement', or 'quit'"
+    "Please type #{TELLER_OPTIONS.map{ |e| "'#{e}'" }.join(", ")} or '#{QUIT_COMMAND}' followed by the enter key"
   end
 
-  def implement_choice
-    choice = gets.chomp
-    if choice == 'deposit'
-      @customer.make_deposit
-    elsif choice == 'withdraw'
-      @customer.make_withdrawal
-    elsif choice == 'balance'
-      show_balance
-    elsif choice == 'statement'
-      print_statement(@customer.transaction_history)
-    elsif choice == 'quit'
-      @session_ended = true
-    else
-      'invalid option'
-    end
+  def say_hello
+    "Welcome, #{@customer_name}"
   end
 
-  def print_statement(history)
-    if @customer.transaction_history == []
-      puts 'no transactions to show'
-    else
-      print "|     date     || credit || debit || balance |\n"
-      history.reverse.each do |row|
-        row.each do |item|
-          print "|  #{item}  |"
-        end
-        print "\n"
-      end
-    end
-  end
-
-  def show_balance
-    puts "your balance is #{format('%.2f', @customer.balance)}"
-  end
-
-  def goodbye(customer)
-    puts "thanks, #{customer}, and have a great day!"
+  def say_goodbye
+    "Thanks, #{@customer_name}, and have a great day!"
   end
 end
